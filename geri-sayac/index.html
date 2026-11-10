@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#111b1b">
-  <meta name="description" content="Önemli bir ana kadar günleri, saatleri, dakikaları ve saniyeleri sayın. Tarihi özelleştirin ve bağlantınızı paylaşın.">
-  <title>Geri Sayım — Önemli bir ana kalan süre</title>
+  <meta name="description" content="22 Mart 2024 tarihinden itibaren 5 yıl 1 günün dolacağı 23 Mart 2029 tarihine geri sayım.">
+  <title>5 Yıl 1 Gün — Geri Sayım</title>
   <style>
     :root {
       color-scheme: dark;
@@ -132,9 +132,9 @@
     </header>
 
     <main>
-      <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> Zaman akıyor</p>
-      <h1 id="event-title">Yeni yıla kalan süre</h1>
-      <p class="date-line" id="target-date">1 Ocak 2027, 00.00</p>
+      <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> 22 Mart 2024 tarihinde başladı</p>
+      <h1 id="event-title">5 yıl 1 gün</h1>
+      <p class="date-line" id="target-date">22 Mart 2024 → 23 Mart 2029, 00.00 (Türkiye saati)</p>
       <div class="rule" aria-hidden="true"></div>
 
       <section class="countdown" role="timer" aria-label="Hedef tarihe kalan süre" aria-live="off">
@@ -145,7 +145,7 @@
       </section>
 
       <div class="after">
-        <p class="message" id="status">Her saniye, beklenen ana biraz daha yakın.</p>
+        <p class="message" id="status">5 yıl 1 günün tamamlanmasına kalan süre.</p>
         <div class="actions">
           <button class="button secondary" id="share-button" type="button">Bağlantıyı kopyala ↗</button>
           <button class="button" id="edit-button" type="button" aria-controls="editor" aria-expanded="false">Tarihi ayarla →</button>
@@ -166,7 +166,7 @@
               <input id="date-input" type="datetime-local" step="60" required>
             </label>
           </div>
-          <p class="hint">Tarih ve saat, cihazınızın yerel saat diliminde girilir. Paylaştığınız bağlantı, dünyanın her yerinde aynı ana geri sayar.</p>
+          <p class="hint">Ana hedef: 22 Mart 2024 başlangıcından 5 yıl 1 gün sonrası, 23 Mart 2029 saat 00.00 (Türkiye saati). İsterseniz hedefi burada değiştirebilirsiniz. Girdiğiniz yeni tarih cihazınızın yerel saat diliminde yorumlanır.</p>
           <div class="form-footer">
             <button class="button" type="submit">Geri sayımı kaydet →</button>
             <p class="form-error" id="form-error" role="alert"></p>
@@ -179,8 +179,8 @@
     </main>
 
     <footer class="footer">
-      <span>Önemli anlara küçük bir yer.</span>
-      <span>Bir tarih belirle. Birlikte sayalım.</span>
+      <span>Başlangıç: 22.03.2024</span>
+      <span>Hedef: 23.03.2029 · 00.00 (TR)</span>
     </footer>
   </div>
 
@@ -198,12 +198,10 @@
       var errorEl = $("form-error");
       var themeButton = $("theme-button");
       var digits = { days: $("days"), hours: $("hours"), minutes: $("minutes"), seconds: $("seconds") };
-      var storeKey = "geri-sayac-settings-v1";
+      var storeKey = "geri-sayac-settings-v2";
       var params = new URLSearchParams(window.location.search);
-      var now = new Date();
-      var nextYear = now.getFullYear() + 1;
-      var defaultIso = new Date(nextYear + "-01-01T00:00:00+03:00").toISOString();
-      var defaults = { title: "Yeni yıla kalan süre", to: defaultIso, theme: "dark" };
+      var defaultIso = new Date("2029-03-23T00:00:00+03:00").toISOString();
+      var defaults = { title: "5 yıl 1 gün", to: defaultIso, theme: "dark" };
       var stored = {};
 
       try { stored = JSON.parse(localStorage.getItem(storeKey) || "{}"); } catch (e) { stored = {}; }
@@ -245,7 +243,7 @@
 
       function renderMeta() {
         titleEl.textContent = current.title;
-        dateEl.textContent = formatDate(current.to);
+        dateEl.textContent = (current.to === defaultIso) ? "22 Mart 2024 → 23 Mart 2029, 00.00 (Türkiye saati)" : formatDate(current.to);
         document.title = current.title + " — Geri Sayım";
         setTheme(current.theme);
         syncForm();
@@ -265,8 +263,8 @@
         digits.seconds.textContent = String(seconds).padStart(2, "0");
 
         statusEl.textContent = remaining > 0
-          ? "Her saniye, beklenen ana biraz daha yakın."
-          : "Beklenen an geldi. ✨";
+          ? "5 yıl 1 günün tamamlanmasına kalan süre."
+          : "5 yıl 1 gün tamamlandı. ✨";
       }
 
       function makeUrl() {
